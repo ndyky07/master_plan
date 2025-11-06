@@ -155,3 +155,94 @@ InheritedWidget yang dimaksud adalah PlanProvider. Fungsinya: Menyebarkan data P
 
 Aplikasi Master Plan berbasis Flutter ini merupakan daftar tugas harian (to-do list) yang mendukung penambahan tugas baru dan penandaan tugas selesai. Di bagian bawah daftar, ada indikator kemajuan seperti "2 dari 5 tugas" untuk memantau progres. Perubahan data langsung tercermin di UI berkat state management sederhana menggunakan InheritedNotifier dan ValueNotifier, memastikan tampilan selalu sinkron dengan data terkini.
 
+**Praktikum 3: Membuat State di Multiple Screens**
+
+Langkah 1: Edit PlanProvider
+
+![master_plan](images/30.png)
+
+Langkah 2: Edit main.dart
+
+![master_plan](images/31.png)
+
+Langkah 3: Edit plan_screen.dart
+
+![master_plan](images/32.png)
+
+Langkah 4: Error
+
+Itu akan terjadi error setiap kali memanggil PlanProvider.of(context). Itu terjadi karena screen saat ini hanya menerima tugas-tugas untuk satu kelompok Plan, tapi sekarang PlanProvider menjadi list dari objek plan tersebut.
+
+Langkah 5: Tambah getter Plan
+
+![master_plan](images/33.png)
+
+Langkah 6: Method initState()
+
+![master_plan](images/34.png)
+
+Langkah 7: Widget build
+
+![master_plan](images/35.png)
+
+Langkah 8: Edit _buildTaskTile
+
+![master_plan](images/36.png)
+
+Langkah 9: Buat screen baru
+
+    a. plan_creator_screen.dart
+
+![master_plan](images/37.png)
+
+    b. main.dart
+
+![master_plan](images/38.png)
+
+Langkah 10: Pindah ke class _PlanCreatorScreenState
+
+![master_plan](images/39.png)
+
+Langkah 11: Pindah ke method build
+
+![master_plan](images/40.png)
+
+Langkah 12: Buat widget _buildListCreator
+
+![master_plan](images/41.png)
+
+Langkah 13: Buat void addPlan()
+
+![master_plan](images/42.png)
+
+Langkah 14: Buat widget _buildMasterPlans()
+
+![master_plan](images/43.png)
+
+Langkah 15 : Hasil
+
+![master_plan](images/44.jpg)
+
+![master_plan](images/45.jpg)
+
+![master_plan](images/46.jpg)
+
+**Tugas Praktikum 3: State di Multiple Screens**
+
+1.	Selesaikan langkah-langkah praktikum tersebut, lalu dokumentasikan berupa GIF hasil akhir praktikum beserta penjelasannya di file README.md! Jika Anda menemukan ada yang error atau tidak berjalan dengan baik, silakan diperbaiki sesuai dengan tujuan aplikasi tersebut dibuat.
+
+2.	Berdasarkan Praktikum 3 yang telah Anda lakukan, jelaskan maksud dari gambar diagram berikut ini!
+
+![master_plan](images/47.jpg)
+
+Gambar tersebut memperlihatkan proses perpindahan antartampilan di aplikasi Flutter melalui penggunaan Navigator.push. Pada awalnya, aplikasi hanya menampilkan satu layar utama yaitu PlanCreatorScreen. Di layar ini, pengguna dapat menambahkan rencana baru menggunakan sebuah TextField, sementara daftar rencana yang sudah dibuat tampil dalam bentuk ListView. Seluruh elemen tersebut disusun di dalam sebuah Column yang merupakan bagian dari MaterialApp dan dikelola melalui PlanProvider.
+	
+Ketika salah satu rencana dipilih oleh pengguna, aplikasi menampilkan layar baru dengan melakukan navigasi melalui Navigator.push. Panah pada diagram menunjukkan alur perpindahan ke layar berikutnya. Layar tujuan tersebut bernama PlanScreen, dan memiliki tampilan yang lebih lengkap. Pada PlanScreen, seluruh antarmuka dibangun menggunakan Scaffold yang menyediakan AppBar dan tombol aksi mengambang. Di dalamnya terdapat ListView untuk menampilkan daftar tugas yang berkaitan dengan suatu rencana. Selain itu, di bagian bawah terdapat teks informasi seperti “Semua tugas sudah selesai” yang dibungkus dengan SafeArea, agar tidak tertutup bagian bawah layar.
+
+3.	Lakukan capture hasil dari Langkah 14 berupa GIF, kemudian jelaskan apa yang telah Anda buat!
+
+![master_plan](images/48.gif)
+
+Pada tahap ini, aplikasi Master Plan sudah berfungsi dengan baik dan keseluruhan alurnya bisa dilihat melalui GIF hasil capture. Aplikasi memungkinkan pengguna untuk menambahkan rencana pada layar utama melalui sebuah kotak input. Setiap rencana yang dibuat langsung muncul di daftar. Saat pengguna mengetuk salah satu rencana, aplikasi akan mengarahkan ke halaman detail melalui navigasi. Di halaman detail tersebut, pengguna dapat memasukkan tugas baru menggunakan tombol tambah (+). Tugas yang telah dibuat bisa diperbarui atau ditandai sebagai selesai. Aplikasi juga memberikan informasi ringkas mengenai jumlah tugas yang telah diselesaikan dibandingkan total seluruh tugas yang ada.
+
+
